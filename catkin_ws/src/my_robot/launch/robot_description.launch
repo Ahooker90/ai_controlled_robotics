@@ -1,0 +1,11 @@
+<launch>
+  <!-- Load the URDF file into the parameter 'robot_description' -->
+  <param name="robot_description" command="cat /home/ahooker/unity_projects/ros_scene/Assets/URDF/diff_wheeled_robot_2.urdf" />
+
+  <!-- Run the robot_state_publisher to publish the robot's state -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+  <!-- Optionally, start RViz with a predefined configuration -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find my_robot)/rviz/your_rviz_config.rviz" output="screen"/>
+</launch>
+

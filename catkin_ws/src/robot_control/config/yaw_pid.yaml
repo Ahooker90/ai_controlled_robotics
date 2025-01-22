@@ -1,0 +1,9 @@
+yaw_pid:
+  p: 1.0            # Proportional gain
+  i: 0.0            # Integral gain
+  d: 0.00           # Derivative gain
+  i_clamp: 0.5      # Prevent integral wind-up
+  setpoint_topic: "/target_yaw"  # Target yaw angle (in radians)
+  state_topic: "/current_yaw"    # Current yaw angle (in radians)
+  control_topic: "/yaw_output"   # PID output (angular velocity)
+

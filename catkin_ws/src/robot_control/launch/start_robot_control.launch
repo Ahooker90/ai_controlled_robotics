@@ -1,0 +1,31 @@
+<launch>
+    <!-- PID Controller for Yaw -->
+    <node name="yaw_pid" pkg="pid" type="controller" output="screen">
+        <param name="Kp" value="5.0" />
+        <param name="Ki" value="0.0" />
+        <param name="Kd" value="0.00" />
+        <param name="upper_limit" value="4.0" />
+        <param name="lower_limit" value="-4.0" />
+        <param name="windup_limit" value="1.0" />
+        <param name="max_loop_frequency" value="100.0" />
+        <param name="min_loop_frequency" value="10.0" />
+        <remap from="setpoint" to="/setpoint" />
+        <remap from="state" to="/state" />
+        <remap from="control_effort" to="/control_effort" />
+    </node>
+
+    <!-- Target Yaw Setpoint Node -->
+    <node name="setpoint_node" pkg="pid" type="setpoint_node" output="screen">
+        <param name="rate" value="10.0" /> <!-- Publish rate of the setpoint -->
+        <param name="initial_setpoint" value="0.0" /> <!-- Initial target yaw -->
+    </node>
+
+    <!-- Visualization for PID Debugging -->
+    <node name="rqt_plot" pkg="rqt_plot" type="rqt_plot"
+        args="/control_effort/data /state/data /setpoint/data" />
+    <node name="rqt_reconfigure" pkg="rqt_reconfigure" type="rqt_reconfigure" />
+    <node name="rqt_robot_monitor" pkg="rqt_robot_monitor" type="rqt_robot_monitor" />
+
+    <!-- Disabled Plant Simulation Node -->
+    <!-- Removed yaw_plant_sim to avoid duplicate /state publishing -->
+</launch>
